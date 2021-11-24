@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+
+  node:
+    container_name: node-component
+    image: raymondyan777/node-component
+    build:
+      context: nodejs
+    ports:
+      - "3000:3000"
+    environment:
+      - PGDATABASE=postgres
+      - PGHOST=db
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+      - EXTERNALPORT=3000
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    image: postgres:12
+    ports: 
+      - "5435:5435"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
