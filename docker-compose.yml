@@ -17,6 +17,19 @@ services:
       - EXTERNALPORT=3000
     depends_on:
       - db
+  
+  python:
+    container_name: python
+    image: raymondyan777/python-component
+    build:
+      context: py
+    ports:
+      - 80:80
+    environment:
+      - DB_URI=postgresql://postgres:postgres@db:5432/postgres
+    depends_on:
+      - db
+    
 
   db:
     container_name: db
